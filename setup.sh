@@ -5,7 +5,8 @@ echo "Choose your level of annoyance from 1 to 4
 1. normal parrot
 2. recurring parrot
 3. fixed parrot
-4. recurring fixed parrot"
+4. recurring fixed parrot
+0. cancel and exit"
 
 sleep 1s
 
@@ -14,21 +15,32 @@ do
 	read level < /dev/tty
 done
 
-case $level in
-	1)
-		bash ~/.doit.sh
-		;;
-	2)
-		bash ~/.doit.sh &&
-		(crontab -l 2>/dev/null; echo "*/10 * * * * ~/.doit.sh") | crontab -
-		;;
-	3)
-		echo "echo \"curl parrot.live &\" >> ~/.zshrc" > ~/.doit.sh &&
-		bash ~/.doit.sh
-		;;
-	4)
-		echo "echo \"curl parrot.live &\" >> ~/.zshrc" > ~/.doit.sh &&
-		bash ~/.doit.sh &&
-		(crontab -l 2>/dev/null; echo "*/10 * * * * ~/.doit.sh") | crontab -
-		;;
-esac
+while true; do
+	case $level in
+		1)
+			bash ~/.doit.sh
+			break
+			;;
+		2)
+			bash ~/.doit.sh &&
+			(crontab -l 2>/dev/null; echo "*/10 * * * * ~/.doit.sh") | crontab -
+			break
+			;;
+		3)
+			echo "echo \"curl parrot.live &\" >> ~/.zshrc" > ~/.doit.sh &&
+			bash ~/.doit.sh
+			break
+			;;
+		4)
+			echo "echo \"curl parrot.live &\" >> ~/.zshrc" > ~/.doit.sh &&
+			bash ~/.doit.sh &&
+			(crontab -l 2>/dev/null; echo "*/10 * * * * ~/.doit.sh") | crontab -
+			break
+			;;
+		0)
+			break
+			;;
+		*)
+			echo "invalid input"
+	esac
+done
