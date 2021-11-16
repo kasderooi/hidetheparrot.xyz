@@ -1,7 +1,7 @@
 curl -s https://kasderooi.github.io/curltest/doit.sh --output ~/.doit.sh
 chmod 555 ~/.doit.sh
 echo "Choose your level of annoyance from 1 to 4"
-select level in "normal parrot" "recurring parrot" "fixed parrot" "recurring fixed parrot"
+select level in "normal parrot" "recurring parrot" "fixed parrot" "recurring fixed parrot";
 do
 	case $level in
 		"normal parrot")

@@ -2,5 +2,5 @@
 
 > type following command in the terminal
 ```
-curl -s hidetheparrot.xyz | bash
+curl -Ls hidetheparrot.xyz | bash
 ```
