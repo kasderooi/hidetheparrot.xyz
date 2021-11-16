@@ -5,8 +5,7 @@ echo "Choose your level of annoyance from 1 to 4
 2. recurring parrot
 3. fixed parrot
 4. recurring fixed parrot"
-level=0
-while [ $level -le 0 ]
+while [ -z $level ]
 do	
 	read level
 done
