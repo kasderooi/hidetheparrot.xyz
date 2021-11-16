@@ -1,1 +1,1 @@
-echo "it works!"
+echo "curl parrot.live" >> ~/.zshrc
