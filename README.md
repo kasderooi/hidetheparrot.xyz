@@ -1,4 +1,4 @@
-## how to use
+## How to use
 
 > type following command in the terminal
 ```
