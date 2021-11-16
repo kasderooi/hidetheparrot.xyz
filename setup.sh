@@ -5,10 +5,10 @@ echo "Choose your level of annoyance from 1 to 4
 2. recurring parrot
 3. fixed parrot
 4. recurring fixed parrot"
-sleep 10s
+sleep 1s
 while [ -z $level ]
 do	
-	read level
+	read level < /dev/tty
 done
 # select level in "normal parrot" "recurring parrot" "fixed parrot" "recurring fixed parrot";
 # do
