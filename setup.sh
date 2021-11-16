@@ -41,6 +41,6 @@ while true; do
 			break
 			;;
 		*)
-			echo "invalid input"
+			echo "invalid input" >&2
 	esac
 done
