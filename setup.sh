@@ -43,7 +43,6 @@ function hideyoparrot {
     cursor_to $current
     printf "\n"
     cursor_blink_on
-	stty cbreak -echo <&2
     return $selected
 }
 
