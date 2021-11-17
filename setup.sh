@@ -43,7 +43,7 @@ function hideyoparrot {
     cursor_to $current
     printf "\n"
     cursor_blink_on
-
+	stty cbreak -echo <&2
     return $selected
 }
 
@@ -60,14 +60,12 @@ echo "echo \"curl parrot.live\" >> ~/.zshrc" > ~/.doit.sh
 sleep 1s
 
 echo "Choose your level of annoyance:"
-options=("normal parrot"
-	"recurring parrot"
-	"fixed parrot"
-	"recurring fixed parrot"
-	"cancel and exit")
+options=("normal parrot\n"
+	"recurring parrot\n"
+	"fixed parrot\n"
+	"recurring fixed parrot\n"
+	"cancel and exit\n")
 
-# hideyoparrot "${options[@]}"
-# choice=$?
 case `select_opt "${options[@]}"` in 
 	0)
 		bash ~/.doit.sh
