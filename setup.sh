@@ -1,5 +1,5 @@
 function hideyoparrot {
-	ESC=$( printf "\033")
+	ESC=$( printf "\033c")
     cursor_blink_on()  { printf "$ESC[?25h"; }
     cursor_blink_off() { printf "$ESC[?25l"; }
     cursor_to()        { printf "$ESC[$1;${2:-1}H"; }
