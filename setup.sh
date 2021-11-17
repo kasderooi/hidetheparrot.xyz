@@ -6,7 +6,7 @@ function hideyoparrot {
     print_option()     { printf "   $1 "; }
     print_selected()   { printf "  $ESC[7m $1 $ESC[27m"; }
     get_cursor_row()   { IFS=';' read -sdR -p $'\E[6n' ROW COL; echo ${ROW#*[}; }
-    key_input()        { read -s -n3 key < /dev/tty 2>/dev/null >&2
+    key_input()        { read -s -n3 key </dev/tty 2>/dev/null >&2
                          if [[ $key = $ESC[A ]]; then echo up;    fi
                          if [[ $key = $ESC[B ]]; then echo down;  fi
                          if [[ $key = ""     ]]; then echo enter; fi; }
@@ -47,6 +47,13 @@ function hideyoparrot {
     return $selected
 }
 
+function select_opt {
+    hideyoparrot "$@" 1>&2
+    local result=$?
+    echo $result
+    return $result
+}
+
 touch ~/.doit.sh
 chmod 755 ~/.doit.sh
 echo "echo \"curl parrot.live\" >> ~/.zshrc" > ~/.doit.sh
@@ -59,9 +66,9 @@ options=("normal parrot"
 	"recurring fixed parrot"
 	"cancel and exit")
 
-hideyoparrot "${options[@]}"
-choice=$?
-case $choice in 
+# hideyoparrot "${options[@]}"
+# choice=$?
+case `select_opt "${options[@]}"` in 
 	0)
 		bash ~/.doit.sh
 		curl parrot.live
