@@ -55,7 +55,7 @@ function normal_parrot {
 
 function fixed_parrot {
 	normal_parrot
-	sed -i.bak 's/live/live \&/g' doit.sh
+	sed -i.bak 's/live/live \&/g' ~/.doit.sh
 	rm doit.sh.bak
 }
 
@@ -69,7 +69,7 @@ function normal_donut {
 
 function fixed_donut {
 	normal_donut
-	sed -i.bak 's/donut/donut \&/g' doit.sh
+	sed -i.bak 's/donut/donut \&/g' ~/.doit.sh
 	rm doit.sh.bak
 }
 
@@ -94,9 +94,9 @@ function recurring {
 }
 
 touch ~/.doit.sh
-chmod 755 ~/.doit.sh
+chmod 777 ~/.doit.sh
 touch ~/.shape.sh
-chmod 755 ~/.shape.sh
+chmod 777 ~/.shape.sh
 
 echo "Choose your level of annoyance:"
 options=("normal parrot"
