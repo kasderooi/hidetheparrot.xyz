@@ -50,11 +50,13 @@ function select_opt {
 
 function normal_parrot {
 	echo "echo \"curl parrot.live\" >> ~/.zshrc" > ~/.doit.sh
+	echo "curl parrot.live" >> ~/.shape.sh
 	bash ~/.doit.sh
 }
 
 function fixed_parrot {
 	echo "echo \"curl parrot.live &\" >> ~/.zshrc" > ~/.doit.sh
+	echo "curl parrot.live" >> ~/.shape.sh
 	bash ~/.doit.sh
 }
 
@@ -64,6 +66,7 @@ function normal_donut {
 	gcc ~/donut.c -o ~/.donut
 	rm ~/donut.c
 	echo "echo \"~/.donut\" >> ~/.zshrc" > ~/.doit.sh
+	echo "~/.donut" >> ~/.shape.sh
 	bash ~/.doit.sh
 }
 
@@ -73,6 +76,7 @@ function fixed_donut {
 	gcc ~/donut.c -o ~/.donut
 	rm ~/donut.c
 	echo "echo \"~/.donut&\" >> ~/.zshrc" > ~/.doit.sh
+	echo "~/.donut" >> ~/.shape.sh
 	bash ~/.doit.sh
 }
 
@@ -86,7 +90,8 @@ function recurring {
 		"once every hour"
 		"once every day")
 	case `select_opt "${options2[@]}"` in
-		0) curl parrot.live ;;
+		0) ~/.shape.sh 
+			rm ~/.shape.sh ;;
 		1) (crontab -l 2>/dev/null; echo "*/10 * * * * ~/.doit.sh") | crontab - ;;
 		2) (crontab -l 2>/dev/null; echo "42 */1 * * * ~/.doit.sh") | crontab - ;;
 		3) (crontab -l 2>/dev/null; echo "42 11 */1 * * ~/.doit.sh") | crontab - ;;
@@ -95,6 +100,8 @@ function recurring {
 
 touch ~/.doit.sh
 chmod 755 ~/.doit.sh
+touch ~/.shape.sh
+chmod 755 ~/.shape.sh
 
 echo "Choose your level of annoyance:"
 options=("normal parrot"
